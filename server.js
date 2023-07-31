@@ -4,7 +4,7 @@ const app=express();
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
-const port=3000;
-app.listen(port,()=>{
-    console.log(`server started on port ${port}`);
+const PORT=process.env.PORT
+app.listen(PORT,()=>{
+    console.log(`server started on port ${PORT}`);
 })
