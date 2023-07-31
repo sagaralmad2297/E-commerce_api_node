@@ -12,4 +12,4 @@ E-commerce API project in NODEJS
   -Run npm install
 
   -Run the project
-   
+    Run `node server.js`
