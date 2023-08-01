@@ -4,6 +4,12 @@ const routes=(app)=>{
     app.post('/ecom/api/v1/category',
     categoryValidator.validateCreate,
     categoryController.createCategory);
+    
+    app.get('/ecom/api/v1/category',
+    categoryController.getallcategories);
+    
 }
+
+
 
 module.exports=routes

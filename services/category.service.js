@@ -14,6 +14,18 @@ const create =async (data)=>{
     }
 }
 
+const getall=async()=>{
+    try{
+        const categories=await category.findAll();
+        return categories
+
+    }catch(err){
+        console.log('something went wrong');
+        console.log(err);
+    }
+}
+
 module.exports={
-    create
+    create,
+    getall
 }
