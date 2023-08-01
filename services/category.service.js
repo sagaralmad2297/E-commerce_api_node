@@ -25,7 +25,39 @@ const getall=async()=>{
     }
 }
 
+const getById=async(categoryId)=>{
+    try{
+        const categoryid=await category.findByPk(categoryId);
+        return categoryid;
+
+    }catch(err){
+        console.log('something went wrong');
+        console.log(err);
+    }
+}
+
+const getByName=async(categoryName)=>{
+    try{
+        const categoryname=await category.findOne({
+            where:{
+                name:categoryName
+            }
+        })
+        return categoryname
+    }catch(err){
+        console.log("something went wrong");
+        console.log(err);
+
+    }
+}
+
+
+
+
+
 module.exports={
     create,
-    getall
+    getall,
+    getById,
+    getByName
 }

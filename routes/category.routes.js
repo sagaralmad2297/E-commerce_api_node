@@ -7,6 +7,9 @@ const routes=(app)=>{
     
     app.get('/ecom/api/v1/category',
     categoryController.getallcategories);
+    app.get('/ecom/api/v1/category/:id',
+    categoryValidator.validateGetById,
+    categoryController.getCategoryById);
     
 }
 

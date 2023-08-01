@@ -3,7 +3,7 @@ const serverError={
     message:'something went wrong,not able to create category',
     success:false,
     data:{},
-    err:'not able to create category'
+    err:'not able to do the operation on category'
 }
 const createCategory=async (req,res)=>{
     const response=await categoryService.create(req.body);
@@ -20,9 +20,19 @@ const createCategory=async (req,res)=>{
 }
 
     const getallcategories=async (req,res)=>{
-        const response=await categoryService.getall();
+        let response;
+        if(req.query.name){
+            response=await categoryService.getByName(req.query.name);
+        }else{
+response=await categoryService.getall();
+        } 
         if(!response){
-            return res.status(500).json(serverError)
+            return res.status(500).json({
+                message:'not able to find the category',
+                success:false,
+                data:[],
+                err:'category not present'
+            })
         }
         res.status(200).json({
             message:'successfully fetched all the categories',
@@ -32,11 +42,26 @@ const createCategory=async (req,res)=>{
         })
     }
 
+    const getCategoryById=async(req,res)=>{
+        const response=await categoryService.getById(req.params.id);
+        if(!response){
+            return res.status(500).json(serverError);
+        }
+        res.status(200).json({
+            message:'successfully fetched the category',
+            success:true,
+            date:response,
+            err:{}
+        })
+    }
+    
+
 
 
 
 
 module.exports={
 createCategory,
-getallcategories
+getallcategories,
+getCategoryById
 }
