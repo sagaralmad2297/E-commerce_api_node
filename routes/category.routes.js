@@ -1,26 +1,26 @@
 const categoryController=require('../controllers/category.controller');
 const categoryValidator=require('../middleware/category.validator');
 const routes=(app)=>{
-    app.post('/ecom/api/v1/category',
+    app.post('/ecom/api/v1/categories',
     categoryValidator.validateCreate,
     categoryController.createCategory);
     
-    app.get('/ecom/api/v1/category',
+    app.get('/ecom/api/v1/categories',
     categoryController.getallcategories);
-    app.get('/ecom/api/v1/category/:id',
+    app.get('/ecom/api/v1/categories/:id',
     categoryValidator.validateGetById,
     categoryController.getCategoryById);
     
-    app.put('/ecom/api/v1/category/:id',
+    app.put('/ecom/api/v1/categories/:id',
     categoryValidator.validateUpdate,
     categoryController.updateCategory);
 
-    app.patch('/ecom/api/v1/category/:id',
+    app.patch('/ecom/api/v1/categories/:id',
     categoryValidator.validatePartialUpdate,
     categoryController.updateCategory
 );
 
-app.delete('/ecom/api/v1/category/:id',
+app.delete('/ecom/api/v1/categories/:id',
 categoryController.destroyCategory
 );
     
