@@ -25,8 +25,34 @@ const validateGetById=(req,res,next)=>{
     next();
 }
 
+const validateUpdate=(req,res,next)=>{
+    if(!req.body.name || !req.params.description){
+        return res.status(400).json({
+            messaage:"invalid request params",
+            success:false,
+            err:"missing name and descreption",
+            data:{}
+    })
+    
+}
+next();
+}
+const validatePartialUpdate=(req,res,next)=>{
+    if(!(req.body.name||req.params.description)){
+        return res.status(400).json({
+            messaage:"invalid request params",
+            success:false,
+            err:"missing name and descreption",
+            data:{}
+    })
+    }
+    next();
+}
+
 
 module.exports={
 validateCreate,
-validateGetById
+validateGetById,
+validateUpdate,
+validatePartialUpdate
 }

@@ -51,6 +51,26 @@ const getByName=async(categoryName)=>{
     }
 }
 
+const update=async(data,categoryId)=>{
+    try{
+      const Category=await category.findByPk(categoryId);
+      
+      if(!Category){
+        console.log("not able to find category ");
+        return {}
+      }
+      await Category.update(data);
+      return Category;
+    }catch(err){
+        console.log("something went wrong")
+
+    }
+}
+
+
+
+
+
 
 
 
@@ -59,5 +79,6 @@ module.exports={
     create,
     getall,
     getById,
-    getByName
+    getByName,
+    update
 }

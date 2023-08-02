@@ -1,4 +1,6 @@
 const categoryService=require('../services/category.service');
+const _=require('lodash');
+
 const serverError={
     message:'something went wrong,not able to create category',
     success:false,
@@ -44,6 +46,9 @@ response=await categoryService.getall();
 
     const getCategoryById=async(req,res)=>{
         const response=await categoryService.getById(req.params.id);
+        
+       
+        
         if(!response){
             return res.status(500).json(serverError);
         }
@@ -54,6 +59,26 @@ response=await categoryService.getall();
             err:{}
         })
     }
+
+    const updateCategory=async(req,res)=>{
+        const response=await categoryService.update(req.body,req.params.id);
+        if(_.isEmpty(response) && !_.isUndefined(response)){
+            serverError.message="not able to find the category";
+            return res.status(400).json(serverError); 
+        }
+        if(!response){
+            console.log(response)
+            return res.status(500).json(serverError);
+        }
+        return res.status(200).json({
+            message:'successfully updated the category',
+            success:true,
+            data:response,
+            err:{}
+        })
+    }
+
+    
     
 
 
@@ -63,5 +88,6 @@ response=await categoryService.getall();
 module.exports={
 createCategory,
 getallcategories,
-getCategoryById
+getCategoryById,
+updateCategory
 }
