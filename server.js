@@ -1,6 +1,7 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 const categoryRoutes=require('./routes/category.routes');
+const productRoutes=require('./routes/product.routes');
 require('dotenv').config();
 
 
@@ -14,6 +15,7 @@ app.get('/home',(req,res)=>{
 res.render('home');
 })
 categoryRoutes(app);
+productRoutes(app);
 
 const PORT=process.env.PORT
 
