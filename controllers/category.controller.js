@@ -78,6 +78,20 @@ response=await categoryService.getall();
         })
     }
 
+    const destroyCategory=async(req,res)=>{
+        const response=await categoryService.destroy(req.params.id);
+        console.log(response);
+        if(!response){
+            return res.status(500).json(serverError);
+        }
+        return res.status(200).json({
+            message:'successfully deleted the category',
+            success:true,
+            data:response,
+            err:{}
+        })
+    }
+
     
     
 
@@ -89,5 +103,6 @@ module.exports={
 createCategory,
 getallcategories,
 getCategoryById,
-updateCategory
+updateCategory,
+destroyCategory
 }

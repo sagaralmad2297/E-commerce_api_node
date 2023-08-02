@@ -67,6 +67,18 @@ const update=async(data,categoryId)=>{
     }
 }
 
+const destroy=async(categoryId)=>{
+    try{
+        const Category=await category.findByPk(categoryId);
+        await Category.destroy();
+        return true;
+
+    }catch(err){
+        console.log("something went wrong");
+        console.log(err);
+    }
+}
+
 
 
 
@@ -80,5 +92,6 @@ module.exports={
     getall,
     getById,
     getByName,
-    update
+    update,
+    destroy
 }

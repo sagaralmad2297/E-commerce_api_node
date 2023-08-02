@@ -19,6 +19,10 @@ const routes=(app)=>{
     categoryValidator.validatePartialUpdate,
     categoryController.updateCategory
 );
+
+app.delete('/ecom/api/v1/category/:id',
+categoryController.destroyCategory
+);
     
     
 }
