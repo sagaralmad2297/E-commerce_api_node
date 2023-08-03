@@ -38,11 +38,25 @@ const findByName =async(name)=>{
     }
 }
 
+const findById=async(productId)=>{
+    try{
+        const product=await Product.findByPk(productId);
+        if(!product){
+            return {}
+        }
+        return product;
+    }catch(err){
+        console.log('something went wrong');
+        console.log(err);
+    }
+}
+
 
 module.exports={
     create,
     getall,
-    findByName
+    findByName,
+    findById
 
 
 }

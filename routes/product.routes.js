@@ -7,5 +7,10 @@ const routes=(app)=>{
     
     app.get('/ecom/api/v1/products',
     productcontroller.getAllProduct);
+
+    app.get('/ecom/api/v1/products/:id',
+productcontroller.getProductById);
 }
+
+
 module.exports=routes

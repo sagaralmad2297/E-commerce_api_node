@@ -1,4 +1,5 @@
 const productservice=require('../services/product.service');
+const _=require('lodash');
 const serverError={
     message:'something went wrong',
     data:{},
@@ -26,6 +27,10 @@ const getAllProduct=async(req,res)=>{
     }else{
         response=await productservice.findByName(req.query.name)
     }
+    if(_.isEmpty(response) && !_.isUndefined(response)){
+        serverError.err='No product found by given name';
+        return res.status(404).json(serverError);
+    }
     if(!response){
         return res.status(500).json(serverError);
     }
@@ -37,10 +42,28 @@ const getAllProduct=async(req,res)=>{
     })
 }
 
+const getProductById=async(req,res)=>{
+    const response=await productservice.findById(req.params.id);
+    if(_.isEmpty(response) && !_.isUndefined(response)){
+        serverError.err='No product found by given id';
+        return res.status(404).json(serverError);
+    }
+    if(!response){
+        return res.status(500).json(serverError);
+    }
+    return res.status(200).json({
+        message:'successfully fetch the procduct by id',
+        success:true,
+        data:response,
+        err:{}
+    })
+}
+
 
 
 module.exports={
     createProduct,
-    getAllProduct
+    getAllProduct,
+    getProductById
 
 }
