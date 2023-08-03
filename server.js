@@ -2,6 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const categoryRoutes=require('./routes/category.routes');
 const productRoutes=require('./routes/product.routes');
+const dbSync=require('./config/db_sync');
 require('dotenv').config();
 
 
@@ -16,6 +17,9 @@ res.render('home');
 })
 categoryRoutes(app);
 productRoutes(app);
+if(process.env.SYNC){
+dbSync(true);
+}
 
 const PORT=process.env.PORT
 
