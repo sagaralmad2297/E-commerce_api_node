@@ -12,6 +12,9 @@ E-commerce API project in NODEJS
   -Run npm install
   -created a new file .env and configure the following enviroment variables
    .port=3000
+   `npx sequelize init`
+
+   
   -Run the project
     Run `node server.js`
 
@@ -26,4 +29,8 @@ E-commerce API project in NODEJS
  -Every product must belong to a category
  -Every category must have many products
  -so between product and categories we have setup a 1:n(one to many )relation
+
+ ## Seeding data in the database
+  -npx sequelize seed:generate --name add-categories
+  -npx sequelize db:seed:all
  

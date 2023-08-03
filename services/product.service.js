@@ -1,4 +1,4 @@
-const {Product}=require('../models/index');
+const {Product,category}=require('../models/index');
 const { Op }=require('sequelize');
 
 const create=async(data)=>{
@@ -14,7 +14,7 @@ const create=async(data)=>{
 
 const getall=async()=>{
     try{
-       const product=await Product.findAll();
+       const product=await Product.findAll({include:category});
        return product;
     }catch(err){
      console.log("something went wrong");
@@ -29,7 +29,8 @@ const findByName =async(name)=>{
             name:{
                 [Op.like]:`${name}%`
             }
-        }
+        },
+        include:category
        })
        return product;
     }catch(err){
