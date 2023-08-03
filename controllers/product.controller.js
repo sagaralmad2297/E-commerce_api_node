@@ -59,11 +59,43 @@ const getProductById=async(req,res)=>{
     })
 }
 
+const updateProduct=async(req,res)=>{
+    const response=await productservice.update(req.body,req.params.id);
+    if(_.isEmpty(response) && !_.isUndefined(response)){
+        serverError.err="No product found by given id";
+        return res.status(404).json(serverError);
+    }
+    if(!response){
+        return res.status(500).json(serverError);
+    }
+    return res.status(200).json({
+        message:'successfully updated the products',
+        success:true,
+        data:response,
+        err:{}
+    })
+}
+
+const deleteProduct=async(req,res)=>{
+    const response=await productservice.destroy(req.params.id);
+    if(!response){
+        return res.status(500).json(serverError);
+    }
+    return res.status(200).json({
+        message:'successfully deleted the product',
+        success:true,
+        data:{},
+        err:{}
+    })
+}
+
 
 
 module.exports={
     createProduct,
     getAllProduct,
-    getProductById
+    getProductById,
+    updateProduct,
+    deleteProduct
 
 }
