@@ -49,10 +49,33 @@ const validatePartialUpdate=(req,res,next)=>{
     next();
 }
 
+const validatePaginator=(req,res,next)=>{
+    const invalidQueryObject={
+        
+            messaage:'Invaid query arguments',
+            success:false,
+            data:{},
+            err:'limit or offset should be valid number'
+    
+
+    }
+    if(!(req.query.limit || req.query.offset)){
+        next();
+    }
+    if(req.query.limit && Number.isNaN(parseInt(req.query.limit))){
+        return res.status(400).json(invalidQueryObject)
+}
+if(req.query.offset && Number.isNaN(parseInt(req.query.offset))){
+    return res.status(400).json(invalidQueryObject)
+}
+next();
+}
+
 
 module.exports={
 validateCreate,
 validateGetById,
 validateUpdate,
-validatePartialUpdate
+validatePartialUpdate,
+validatePaginator
 }

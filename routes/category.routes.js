@@ -23,6 +23,10 @@ const routes=(app)=>{
 app.delete('/ecom/api/v1/categories/:id',
 categoryController.destroyCategory
 );
+
+app.get('/ecom/api/v1/categories/:id/products',
+categoryValidator.validatePaginator,
+categoryController.getProductBycategory);
     
     
 }

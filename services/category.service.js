@@ -1,4 +1,4 @@
-const {category}=require('../models/index');
+const {category,Product}=require('../models/index');
 const create =async (data)=>{
     try{
      const Category=await category.create({
@@ -79,8 +79,22 @@ const destroy=async(categoryId)=>{
     }
 }
 
+const getProducts=async(categoryId,query)=>{
+    try{
+        const Category =await category.findByPk(categoryId,{
+            include:{
+                model:Product,
+            limit:parseInt(query.limit),
+            offset:parseInt(query.offset)
+            },
+        })
+        return Category;
 
-
+    }catch(err){
+        console.log('something went wrong');
+        console.log(err);
+    }
+}
 
 
 
@@ -93,5 +107,6 @@ module.exports={
     getById,
     getByName,
     update,
-    destroy
+    destroy,
+    getProducts
 }

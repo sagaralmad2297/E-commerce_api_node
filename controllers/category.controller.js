@@ -80,7 +80,7 @@ response=await categoryService.getall();
 
     const destroyCategory=async(req,res)=>{
         const response=await categoryService.destroy(req.params.id);
-        console.log(response);
+        
         if(!response){
             return res.status(500).json(serverError);
         }
@@ -91,6 +91,21 @@ response=await categoryService.getall();
             err:{}
         })
     }
+
+    const getProductBycategory=async(req,res)=>{
+        const response=await categoryService.getProducts(req.params.id,req.query);
+        if(!response){
+            return res.status(500).json(serverError);
+        }
+        return res.status(200).json({
+            message:'successfully fetched the product of category',
+            success:true,
+            data:response,
+            err:{}
+        })
+    }
+
+    
 
     
     
@@ -104,5 +119,6 @@ createCategory,
 getallcategories,
 getCategoryById,
 updateCategory,
-destroyCategory
+destroyCategory,
+getProductBycategory
 }

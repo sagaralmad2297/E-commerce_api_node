@@ -14,7 +14,6 @@ E-commerce API project in NODEJS
    .port=3000
    `npx sequelize init`
 
-   
   -Run the project
     Run `node server.js`
 
