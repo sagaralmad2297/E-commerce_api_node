@@ -77,6 +77,52 @@ const destroy =async(productId)=>{
         console.log(err);
     }
 }
+const createFilter=(data)=>{
+    let filter={};
+    if(data.MinPrice && data.MaxPrice){
+        Object.assign(filter,{[Op.gte]:data.MinPrice});
+        Object.assign(filter,{[Op.lte]:data.MaxPrice});
+    }
+    else if(data.MinPrice){
+        Object.assign(filter,{[Op.gte]:data.MinPrice});
+    }else if(data.MaxPrice){
+        Object.assign(filter,{[Op.lte]:data.MaxPrice});
+    }
+    return filter;
+}
+const filterProducts=async(data)=>{
+    let products;
+    if(!data.categoryId && !data.MinPrice && !data.MaxPrice){
+        products=await Product.findAll();
+        return products;
+    }
+    const filter=createFilter(data);
+     if(!(data.categoryId)){
+     products=await Product.findAll({
+        where:{
+            cost:filter
+        }
+     })
+     return products;
+    }
+    let costAndCategoryFilter;
+    if(data.MinPrice || data.MaxPrice){
+         costAndCategoryFilter={
+            cost:filter,
+            categoryId:data.categoryId
+        }
+    }else{
+        costAndCategoryFilter={
+            categoryId:data.categoryId
+        }
+    }
+     products=await Product.findAll({
+        where:costAndCategoryFilter
+        
+     });
+     return products;
+     }
+
 
 
 module.exports={
@@ -85,7 +131,8 @@ module.exports={
     findByName,
     findById,
     update,
-    destroy
+    destroy,
+    filterProducts
 
 
 }

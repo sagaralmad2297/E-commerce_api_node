@@ -26,7 +26,11 @@ categoryController.destroyCategory
 
 app.get('/ecom/api/v1/categories/:id/products',
 categoryValidator.validatePaginator,
-categoryController.getProductBycategory);
+categoryController.getProductBycategory,
+);
+
+
+
     
     
 }

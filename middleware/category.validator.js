@@ -56,9 +56,8 @@ const validatePaginator=(req,res,next)=>{
             success:false,
             data:{},
             err:'limit or offset should be valid number'
-    
-
     }
+    
     if(!(req.query.limit || req.query.offset)){
         next();
     }
@@ -78,4 +77,5 @@ validateGetById,
 validateUpdate,
 validatePartialUpdate,
 validatePaginator
+
 }

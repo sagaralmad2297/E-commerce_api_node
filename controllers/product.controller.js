@@ -21,14 +21,14 @@ const createProduct=async (req,res)=>{
 
 const getAllProduct=async(req,res)=>{
     let response;
-    if(!req.query.name){
-
-     response=await productservice.getall();
-    }else{
-        response=await productservice.findByName(req.query.name)
+    if(req.query.name){
+        response=await productservice.findByName(req.query.name);
+    }
+    else{
+        response=await productservice.filterProducts(req.query);
     }
     if(_.isEmpty(response) && !_.isUndefined(response)){
-        serverError.err='No product found by given name';
+        serverError.err='No product found ';
         return res.status(404).json(serverError);
     }
     if(!response){

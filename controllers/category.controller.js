@@ -92,7 +92,7 @@ response=await categoryService.getall();
         })
     }
 
-    const getProductBycategory=async(req,res)=>{
+    const getProductBycategory=async(req,res,next)=>{
         const response=await categoryService.getProducts(req.params.id,req.query);
         if(!response){
             return res.status(500).json(serverError);
@@ -103,6 +103,7 @@ response=await categoryService.getall();
             data:response,
             err:{}
         })
+    next();
     }
 
     
