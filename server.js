@@ -2,6 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const categoryRoutes=require('./routes/category.routes');
 const productRoutes=require('./routes/product.routes');
+const authRoutes=require('./routes/auth.routes');
 const dbSync=require('./config/db_sync');
 require('dotenv').config();
 
@@ -15,8 +16,11 @@ app.set('view engine','ejs')
 app.get('/home',(req,res)=>{
 res.render('home');
 })
+//registring the routes
 categoryRoutes(app);
 productRoutes(app);
+authRoutes(app);
+
 if(process.env.SYNC){
 dbSync(true);
 }
