@@ -30,6 +30,15 @@ const getUserByEmail=async(userEmail)=>{
     
 }
 
+ const getUserByid=async(id)=>{
+    try{
+        const user=await User.findByPk(id)
+        return user;
+    }catch(err){
+        console.log(err);
+    }
+ }
+
 const checkPassword=(userpassword,encryptedPassword)=>{
     return bcrypt.compareSync(userpassword,encryptedPassword);
 }
@@ -40,11 +49,24 @@ const createToken=(user)=>{
     });
 }
 
+const verifytoken=(token)=>{
+    try{ 
+       const response= jwt.verify(token,process.env.JWT_SECRET)
+       return response;
+    }catch(err){
+        console.log(err);
+    }
+}
+
+
+
 
 module.exports={
     signup,
     getUserByEmail,
     checkPassword,
-    createToken
+    createToken,
+    verifytoken,
+    getUserByid
 
 }

@@ -1,7 +1,9 @@
 const categoryController=require('../controllers/category.controller');
 const categoryValidator=require('../middleware/category.validator');
+const authValidator=require('../middleware/auth.validator');
 const routes=(app)=>{
     app.post('/ecom/api/v1/categories',
+    authValidator.isAuthenticted,
     categoryValidator.validateCreate,
     categoryController.createCategory);
     
