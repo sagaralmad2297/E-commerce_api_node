@@ -14,15 +14,18 @@ const routes=(app)=>{
     categoryController.getCategoryById);
     
     app.put('/ecom/api/v1/categories/:id',
+    authValidator.isAuthenticted,
     categoryValidator.validateUpdate,
     categoryController.updateCategory);
 
     app.patch('/ecom/api/v1/categories/:id',
+    authValidator.isAuthenticted,
     categoryValidator.validatePartialUpdate,
     categoryController.updateCategory
 );
 
 app.delete('/ecom/api/v1/categories/:id',
+authValidator.isAuthenticted,
 categoryController.destroyCategory
 );
 
