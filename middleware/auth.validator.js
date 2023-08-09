@@ -72,10 +72,42 @@ const isAuthenticted= async(req,res,next)=>{
     next();
  }
 
+ const checkSeller =async(req,res,next)=>{
+    const user =await authservice.getUserByid(req.user);
+    const role =await roleServies.getrole(2);
+    const isSeller=await user.hasRole(role);
+    if(!isSeller){
+        return res.status(401).json({
+            message:'user is not a seller',
+            err:'not authorized',
+            data:{},
+            success:false
+        })
+    }
+    next();
+ }
+
+ const isAdminOrseller=async (req,res,next)=>{
+    const user=await authservice.getUserByid(req.user);
+    const admin=await roleServies.getrole(1);
+    const seller=await roleServies.getrole(2);
+    if(!(user.hasRole(admin)||(user.hasRole(seller)))){
+        return res.status(401).json({
+            message:'Action only available to a valid admin or seller',
+            err:'not authorized',
+            data:{},
+            success:false
+        })
+    }
+    next();
+ }
+
 
 module.exports={
     validatesignup,
     validateSignin,
     isAuthenticted,
-    checkAdmin
+    checkAdmin,
+    checkSeller,
+    isAdminOrseller
 }

@@ -4,6 +4,7 @@ const authValidator=require('../middleware/auth.validator');
 const routes=(app)=>{
     app.post('/ecom/api/v1/categories',
     authValidator.isAuthenticted,
+    authValidator.checkAdmin,
     categoryValidator.validateCreate,
     categoryController.createCategory);
     
@@ -15,17 +16,20 @@ const routes=(app)=>{
     
     app.put('/ecom/api/v1/categories/:id',
     authValidator.isAuthenticted,
+    authValidator.checkAdmin,
     categoryValidator.validateUpdate,
     categoryController.updateCategory);
 
     app.patch('/ecom/api/v1/categories/:id',
     authValidator.isAuthenticted,
+    authValidator.checkAdmin,
     categoryValidator.validatePartialUpdate,
     categoryController.updateCategory
 );
 
 app.delete('/ecom/api/v1/categories/:id',
 authValidator.isAuthenticted,
+authValidator.checkAdmin,
 categoryController.destroyCategory
 );
 
