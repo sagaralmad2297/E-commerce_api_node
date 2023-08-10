@@ -102,6 +102,20 @@ const isAuthenticted= async(req,res,next)=>{
     next();
  }
 
+ const isSameUserLoggedIn=async(req,res,next)=>{
+     if(!(req.user==req.body.userId)){
+        return res.status(401).json({
+            message:'cannot change the user name of other user',
+            err:'not authorized',
+            data:{},
+            success:false
+        })
+     }
+     next();
+ }
+
+ 
+
 
 module.exports={
     validatesignup,
@@ -109,5 +123,6 @@ module.exports={
     isAuthenticted,
     checkAdmin,
     checkSeller,
-    isAdminOrseller
+    isAdminOrseller,
+    isSameUserLoggedIn
 }
