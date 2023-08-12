@@ -1,5 +1,6 @@
 const {Cart,Product,Cart_Products}=require('../models/index');
 const db=require('../models/index');
+const { Op }=require('sequelize');
 
 const STATUS={
     CREATION:'creation',
@@ -146,11 +147,35 @@ const getPriceOfCart=async(cartId)=>{
     }
 }
 
+const getOrders=async(uid)=>{
+    try{
+        const GET_ORDERS_QUERY=`
+        SELECT P.name, P.cost, CP.quantity, C.status, C.id FROM Carts as C
+        INNER JOIN Users as U
+        on U.id =C.userId
+        INNER JOIN Cart_Products as cp
+        ON CP.cartId=C.id
+        INNER JOIN Products as P
+        ON P.id =CP.productId
+        WHERE U.id=${uid}
+        `;
+        const [result,metadata]=await db.sequelize.query(GET_ORDERS_QUERY)
+        return result;
+    }catch(err){
+        console.log(err);
+    }
+
+
+   
+}
+
+
 module.exports={
     addProductToCart,
     getCartByUser,
     createCart,
     removeProductFromCart,
     updatestatus,
-    getPriceOfCart
+    getPriceOfCart,
+    getOrders
 }
