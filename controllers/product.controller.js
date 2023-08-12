@@ -7,6 +7,7 @@ const serverError={
 }
 const createProduct=async (req,res)=>{
     const response=await productservice.create(req.body);
+    
     if(!response){
     return res.status(500).json(serverError);
         

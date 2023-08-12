@@ -4,7 +4,8 @@ const categoryRoutes=require('./routes/category.routes');
 const productRoutes=require('./routes/product.routes');
 const authRoutes=require('./routes/auth.routes');
 const roleRoutes=require('./routes/role.routes');
-const dbSync=require('./config/db_sync');
+const cartRoutes=require('./routes/cart.routes');
+const {dbSync,syncTable}=require('./config/db_sync');
 require('dotenv').config();
 
 
@@ -22,9 +23,19 @@ categoryRoutes(app);
 productRoutes(app);
 authRoutes(app);
 roleRoutes(app);
+cartRoutes(app); 
+
 
 if(process.env.SYNC){
-dbSync(true);
+//dbSync(true);
+syncTable(false,true,require('./models/index').Cart)
+.then((data)=>{
+    syncTable(false,true,require('./models/index').Product)
+    .then((data)=>{
+        syncTable(false,true,require('./models/index').Cart_Products);
+    })
+})
+
 }
 
 const PORT=process.env.PORT

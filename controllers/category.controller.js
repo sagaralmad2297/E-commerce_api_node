@@ -9,6 +9,7 @@ const serverError={
 }
 const createCategory=async (req,res)=>{
     const response=await categoryService.create(req.body);
+    console.log(response);
     if(!response){
         return res.status(500).json(serverError)
     

@@ -2,7 +2,8 @@ const {Product,category}=require('../models/index');
 const { Op }=require('sequelize');
 
 const create=async(data)=>{
-   try{ const product=await Product.create(data); 
+   try{ 
+    const product=await Product.create(data); 
     return product;
 
    }catch(err){
