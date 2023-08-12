@@ -1,4 +1,5 @@
 const {Cart,Product,Cart_Products}=require('../models/index');
+const db=require('../models/index');
 
 const STATUS={
     CREATION:'creation',
@@ -128,10 +129,28 @@ const updatestatus=async(cartId,cartStatus)=>{
     }
 }
 
+const getPriceOfCart=async(cartId)=>{
+    try{
+        const GET_TOTAL_PRICE_QUERY=`
+            SELECT SUM(CP.quantity*P.cost) as TOTAL_COST FROM 
+            Carts as C INNER JOIN Cart_PRODUCTS as CP
+            ON c.id=CP.cartId
+            INNER JOIN products as P
+            ON p.id=CP.productId
+            WHERE c.id=${cartId};
+        `;
+     const [result,metadata]=await db.sequelize.query(GET_TOTAL_PRICE_QUERY)
+     return {result,metadata};
+    }catch(err){
+        console.log(err)
+    }
+}
+
 module.exports={
     addProductToCart,
     getCartByUser,
     createCart,
     removeProductFromCart,
-    updatestatus
+    updatestatus,
+    getPriceOfCart
 }

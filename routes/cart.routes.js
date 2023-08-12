@@ -21,6 +21,12 @@ const routes=(app)=>{
         orderValidator.validateStatusUpdate,
         cartController.updateOrderStatus
     )
+
+    app.get(
+        '/ecom/api/v1/cart/:id/total',
+        authValidator.isAuthenticted,
+        cartController.getTotalPrice
+    )
 }
 
 module.exports=routes;

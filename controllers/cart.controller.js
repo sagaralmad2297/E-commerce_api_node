@@ -1,11 +1,18 @@
 const cartService=require('../services/cart.service');
-const {STATUS}=require('../config/constants');
+
 
 const serverError={
     message:'something went wrong,',
     success:false,
     data:{},
     err:'not able to do the operation '
+}
+
+const STATUS={
+    CREATION:'creation',
+    PLACED:'placed',
+    CANCELLED:'cancelled',
+    DELIVERED:'delivered'
 }
 
 const addToCart=async(req,res)=>{
@@ -91,9 +98,24 @@ const addToCart=async(req,res)=>{
     })
 
  }
+
+ const getTotalPrice=async(req,res)=>{
+ const response=await cartService.getPriceOfCart(req.params.id);
+ console.log(response);
+ if(!response){
+    return res.status(500).json(serverError)
+ }
+ return res.status(200).json({
+    message:'Successfully calculated the total cost of the cart',
+    err:{},
+    success:true,
+    data:response
+ })
+ }
 module.exports={
     addToCart,
     removeFromCart,
-    updateOrderStatus
+    updateOrderStatus,
+    getTotalPrice
 
 }
