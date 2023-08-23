@@ -27,7 +27,7 @@ const createCategory=async (req,res)=>{
         if(req.query.name){
             response=await categoryService.getByName(req.query.name);
         }else{
-response=await categoryService.getall();
+          response=await categoryService.getall();
         } 
         if(!response){
             return res.status(500).json({
@@ -88,7 +88,7 @@ response=await categoryService.getall();
         return res.status(200).json({
             message:'successfully deleted the category',
             success:true,
-            data:response,
+            data:{},
             err:{}
         })
     }
