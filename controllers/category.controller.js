@@ -14,7 +14,7 @@ const createCategory=async (req,res)=>{
         return res.status(500).json(serverError)
     
     }
-    res.status(201).json({
+   return res.status(201).json({
         message:'successfully created the category',
         success:true,
         data:response,
@@ -37,7 +37,7 @@ response=await categoryService.getall();
                 err:'category not present'
             })
         }
-        res.status(200).json({
+      return  res.status(200).json({
             message:'successfully fetched all the categories',
             success:true,
             data:response,
@@ -53,7 +53,7 @@ response=await categoryService.getall();
         if(!response){
             return res.status(500).json(serverError);
         }
-        res.status(200).json({
+      return  res.status(200).json({
             message:'successfully fetched the category',
             success:true,
             date:response,
